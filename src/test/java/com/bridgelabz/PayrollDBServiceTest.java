@@ -57,4 +57,21 @@ public class PayrollDBServiceTest {
 
         Assertions.assertFalse(stats.isEmpty());
     }
+    @Test
+    public void givenNewEmployee_WhenAdded_ShouldMatchWithDatabase()
+            throws PayrollException {
+
+        EmployeePayroll employee =
+                service.addEmployeeToPayroll(
+                        "David",
+                        2800000.00,
+                        LocalDate.now(),
+                        "M");
+
+        EmployeePayroll dbEmployee =
+                service.getEmployeeData("David");
+
+        Assertions.assertEquals(employee.getBasicPay(),
+                dbEmployee.getBasicPay());
+    }
 }
